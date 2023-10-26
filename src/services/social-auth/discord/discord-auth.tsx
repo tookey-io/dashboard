@@ -14,7 +14,16 @@ export default function DiscordAuth({ connect }: { connect?: boolean }) {
 
   return (
     <>
-      <Button variant="contained" color="primary" onClick={onLogin}>
+      <Button
+        variant="contained"
+        sx={{
+          bgcolor: "#7289da",
+          ":hover": { bgcolor: "#5e78d5" },
+          ":active": { bgcolor: "#5e78d5" },
+          ":focus": { bgcolor: "#5e78d5" },
+        }}
+        onClick={onLogin}
+      >
         {t("common:auth.discord.action")}
       </Button>
     </>

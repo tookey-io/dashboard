@@ -14,8 +14,17 @@ export default function TwitterAuth({ connect }: { connect?: boolean }) {
 
   return (
     <>
-      <Button variant="contained" color="primary" onClick={onLogin}>
-        {t("common:auth.twiiter.action")}
+      <Button
+        variant="contained"
+        sx={{
+          bgcolor: "#1DA1F2",
+          ":hover": { bgcolor: "#0d95e8" },
+          ":active": { bgcolor: "#0d95e8" },
+          ":focus": { bgcolor: "#0d95e8" },
+        }}
+        onClick={onLogin}
+      >
+        {t("common:auth.twitter.action")}
       </Button>
     </>
   );
