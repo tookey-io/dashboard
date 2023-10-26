@@ -15,7 +15,7 @@ export default function TwitterAuth({ connect }: { connect?: boolean }) {
   return (
     <>
       <Button variant="contained" color="primary" onClick={onLogin}>
-        {t("common:auth.discord.action")}
+        {t("common:auth.twiiter.action")}
       </Button>
     </>
   );

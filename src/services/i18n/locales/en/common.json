@@ -30,6 +30,9 @@
     },
     "discord": {
       "action": "Login with Discord"
+    },
+    "twitter": {
+      "action": "Login with Twitter"
     }
   }
 }
