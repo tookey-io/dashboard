@@ -13,7 +13,6 @@ function ThemeProvider(props: PropsWithChildren<{}>) {
   const theme = useMemo(
     () =>
       createTheme({
-        spacing: {},
         shadows: Array(25).fill("none") as Shadows,
         palette: {
           mode: "light",
