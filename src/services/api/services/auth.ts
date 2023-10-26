@@ -1,9 +1,9 @@
 import { useCallback } from "react";
-import useFetchBase from "../use-fetch-base";
-import useFetch from "../use-fetch";
-import { API_URL } from "../config";
-import { User } from "../types/user";
+import { API_URL, AUTH_ME_URL } from "../config";
 import { Tokens } from "../types/tokens";
+import { User } from "../types/user";
+import useFetch from "../use-fetch";
+import useFetchBase from "../use-fetch-base";
 import wrapperFetchJsonResponse from "../wrapper-fetch-json-response";
 
 export type AuthLoginRequest = {
@@ -11,8 +11,16 @@ export type AuthLoginRequest = {
   password: string;
 };
 
-export type AuthLoginResponse = Tokens & {
+export type AuthLoginResponse = {
   user: User;
+  access: {
+    token: string;
+    validUntil: string;
+  };
+  refresh: {
+    token: string;
+    validUntil: string;
+  };
 };
 
 export function useAuthLoginService() {
@@ -20,7 +28,7 @@ export function useAuthLoginService() {
 
   return useCallback(
     (data: AuthLoginRequest) => {
-      return fetchBase(`${API_URL}/v1/auth/email/login`, {
+      return fetchBase(`${API_URL}/api/auth/email/login`, {
         method: "POST",
         body: JSON.stringify(data),
       }).then(wrapperFetchJsonResponse<AuthLoginResponse>);
@@ -33,8 +41,16 @@ export type AuthGoogleLoginRequest = {
   idToken: string;
 };
 
-export type AuthGoogleLoginResponse = Tokens & {
+export type AuthGoogleLoginResponse = {
   user: User;
+  access: {
+    token: string;
+    validUntil: string;
+  };
+  refresh: {
+    token: string;
+    validUntil: string;
+  };
 };
 
 export function useAuthGoogleLoginService() {
@@ -42,7 +58,7 @@ export function useAuthGoogleLoginService() {
 
   return useCallback(
     (data: AuthGoogleLoginRequest) => {
-      return fetchBase(`${API_URL}/v1/auth/google/login`, {
+      return fetchBase(`${API_URL}/api/auth/google`, {
         method: "POST",
         body: JSON.stringify(data),
       }).then(wrapperFetchJsonResponse<AuthGoogleLoginResponse>);
@@ -64,12 +80,78 @@ export function useAuthFacebookLoginService() {
 
   return useCallback(
     (data: AuthFacebookLoginRequest) => {
-      return fetchBase(`${API_URL}/v1/auth/facebook/login`, {
+      return fetchBase(`${API_URL}/api/auth/facebook`, {
         method: "POST",
         body: JSON.stringify(data),
       }).then(wrapperFetchJsonResponse<AuthFacebookLoginResponse>);
     },
     [fetchBase]
+  );
+}
+
+export type AuthDiscordLoginRequest = {
+  code: string;
+};
+
+export type AuthDiscordLoginResponse = {
+  user: User;
+  access: {
+    token: string;
+    validUntil: string;
+  };
+  refresh: {
+    token: string;
+    validUntil: string;
+  };
+};
+export function useAuthDiscordLoginService(connect?: boolean) {
+  const fetch = useFetch();
+
+  return useCallback(
+    (data: AuthDiscordLoginRequest) => {
+      return fetch(
+        `${API_URL}/api/auth/discord${connect ? "/connect" : ""}`,
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+        }
+      ).then(wrapperFetchJsonResponse<AuthDiscordLoginResponse>);
+    },
+    [fetch, connect]
+  );
+}
+
+
+export type AuthTwitterLoginRequest = {
+  code: string;
+  codeVerifier: string;
+};
+
+export type AuthTwitterLoginResponse = {
+  user: User;
+  access: {
+    token: string;
+    validUntil: string;
+  };
+  refresh: {
+    token: string;
+    validUntil: string;
+  };
+};
+export function useAuthTwitterLoginService(connect?: boolean) {
+  const fetch = useFetch();
+
+  return useCallback(
+    (data: AuthTwitterLoginRequest) => {
+      return fetch(
+        `${API_URL}/api/auth/twitter${connect ? "/connect" : ""}`,
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+        }
+      ).then(wrapperFetchJsonResponse<AuthTwitterLoginResponse>);
+    },
+    [fetch, connect]
   );
 }
 
@@ -85,7 +167,7 @@ export function useAuthSignUpService() {
 
   return useCallback(
     (data: AuthSignUpRequest) => {
-      return fetchBase(`${API_URL}/v1/auth/email/register`, {
+      return fetchBase(`${API_URL}/api/auth/email/register`, {
         method: "POST",
         body: JSON.stringify(data),
       }).then(wrapperFetchJsonResponse<AuthSignUpResponse>);
@@ -105,7 +187,7 @@ export function useAuthConfirmEmailService() {
 
   return useCallback(
     (data: AuthConfirmEmailRequest) => {
-      return fetchBase(`${API_URL}/v1/auth/email/confirm`, {
+      return fetchBase(`${API_URL}/api/auth/email/confirm`, {
         method: "POST",
         body: JSON.stringify(data),
       }).then(wrapperFetchJsonResponse<AuthConfirmEmailResponse>);
@@ -125,7 +207,7 @@ export function useAuthForgotPasswordService() {
 
   return useCallback(
     (data: AuthForgotPasswordRequest) => {
-      return fetchBase(`${API_URL}/v1/auth/forgot/password`, {
+      return fetchBase(`${API_URL}/api/auth/email/forgot-password`, {
         method: "POST",
         body: JSON.stringify(data),
       }).then(wrapperFetchJsonResponse<AuthForgotPasswordResponse>);
@@ -146,7 +228,7 @@ export function useAuthResetPasswordService() {
 
   return useCallback(
     (data: AuthResetPasswordRequest) => {
-      return fetchBase(`${API_URL}/v1/auth/reset/password`, {
+      return fetchBase(`${API_URL}/api/auth/email/reset`, {
         method: "POST",
         body: JSON.stringify(data),
       }).then(wrapperFetchJsonResponse<AuthResetPasswordResponse>);
@@ -166,7 +248,7 @@ export function useAuthPatchMeService() {
 
   return useCallback(
     (data: AuthPatchMeRequest) => {
-      return fetch(`${API_URL}/v1/auth/me`, {
+      return fetch(AUTH_ME_URL, {
         method: "PATCH",
         body: JSON.stringify(data),
       }).then(wrapperFetchJsonResponse<AuthPatchMeResponse>);

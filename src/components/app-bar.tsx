@@ -19,6 +19,9 @@ import { useTranslation } from "@/services/i18n/client";
 import Link from "@/components/link";
 import { RoleEnum } from "@/services/api/types/role";
 import Divider from "@mui/material/Divider";
+import Logo from '@/assets/s_tookey_wt.svg';
+import LogoMobile from '@/assets/s_tookey_xs.svg';
+import Image from "next/image";
 
 function ResponsiveAppBar() {
   const { t } = useTranslation("common");
@@ -47,25 +50,11 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth={false}>
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            {t("common:app-name")}
-          </Typography>
+          <Box sx={{ display: { xs: "none", md: "flex" }, mr: 2 }} alignItems='center' justifyContent='center'>
+            <Image src={Logo} alt="logo" height={45} />
+          </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -141,24 +130,10 @@ function ResponsiveAppBar() {
                 ]}
             </Menu>
           </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            {t("common:app-name")}
-          </Typography>
+
+          <Box sx={{ display: { xs: "flex", md: "none" }}} alignItems='center' flexGrow='1'>
+            <Image src={LogoMobile} alt="logo" height={45} />
+          </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
               onClick={handleCloseNavMenu}
@@ -168,17 +143,14 @@ function ResponsiveAppBar() {
             >
               {t("common:navigation.home")}
             </Button>
-
-            {!!user?.role && [RoleEnum.ADMIN].includes(user?.role?.id) && (
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-                component={Link}
-                href="/admin-panel/users"
-              >
-                {t("common:navigation.users")}
-              </Button>
-            )}
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+              component={Link}
+              href="/automation"
+            >
+              {t("common:navigation.automation")}
+            </Button>
           </Box>
 
           {!isLoaded ? (
@@ -213,7 +185,7 @@ function ResponsiveAppBar() {
                 open={Boolean(anchorElementUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem
+                {/* <MenuItem
                   onClick={handleCloseUserMenu}
                   component={Link}
                   href="/profile"
@@ -221,7 +193,7 @@ function ResponsiveAppBar() {
                   <Typography textAlign="center">
                     {t("common:navigation.profile")}
                   </Typography>
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem
                   onClick={() => {
                     logOut();

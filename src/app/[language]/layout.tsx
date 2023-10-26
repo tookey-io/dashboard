@@ -21,6 +21,9 @@ import ReactQueryDevtools from "@/services/react-query/react-query-devtools";
 import GoogleAuthProvider from "@/services/social-auth/google/google-auth-provider";
 import FacebookAuthProvider from "@/services/social-auth/facebook/facebook-auth-provider";
 import ConfirmDialogProvider from "@/components/confirm-dialog/confirm-dialog-provider";
+import DiscordAuthProvider from "@/services/social-auth/discord/discord-auth-provider";
+import TwitterAuthProvider from "@/services/social-auth/twitter/twitter-auth-provider";
+import Box from "@mui/material/Box";
 
 type Props = {
   params: { language: string };
@@ -58,10 +61,25 @@ export default function RootLayout({
                   <AuthProvider>
                     <GoogleAuthProvider>
                       <FacebookAuthProvider>
-                        <LeavePageProvider>
-                          <ResponsiveAppBar />
-                          {children}
-                        </LeavePageProvider>
+                        <DiscordAuthProvider>
+                          <TwitterAuthProvider>
+                            <LeavePageProvider>
+                              <Box
+                                display="flex"
+                                flexDirection="column"
+                                sx={{
+                                  overflow: "auto",
+                                  scrollbarGutter: "static",
+                                  position: "fixed",
+                                  inset: 0,
+                                }}
+                              >
+                                <ResponsiveAppBar />
+                                {children}
+                              </Box>
+                            </LeavePageProvider>
+                          </TwitterAuthProvider>
+                        </DiscordAuthProvider>
                       </FacebookAuthProvider>
                     </GoogleAuthProvider>
                   </AuthProvider>

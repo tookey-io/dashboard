@@ -5,7 +5,7 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import {
@@ -42,6 +42,7 @@ const AvatarInputContainer = styled(Box)(({ theme }) => ({
 }));
 
 function AvatarInput(props: AvatarInputProps) {
+  const theme = useTheme();
   const { onChange } = props;
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
@@ -87,7 +88,7 @@ function AvatarInput(props: AvatarInputProps) {
               color: "white",
               fontWeight: "bold",
               textAlign: "center",
-              mt: 10,
+              mt: theme.spacing(10),
             }}
             variant="h5"
           >
@@ -102,7 +103,7 @@ function AvatarInput(props: AvatarInputProps) {
         }}
         src={props.value?.path}
       />
-      <Box sx={{ mt: 2 }}>
+      <Box sx={{ mt: theme.spacing(2) }}>
         <Button variant="contained" component="label" disabled={isLoading}>
           {isLoading
             ? t("common:loading")
@@ -111,14 +112,14 @@ function AvatarInput(props: AvatarInputProps) {
         </Button>
       </Box>
 
-      <Box sx={{ mt: 1 }}>
+      <Box sx={{ mt: theme.spacing(1) }}>
         <Typography>
           {t("common:formInputs.avatarInput.dragAndDrop")}
         </Typography>
       </Box>
 
       {props.error && (
-        <Box sx={{ mt: 1 }}>
+        <Box sx={{ mt: theme.spacing(1) }}>
           <Typography sx={{ color: "red" }}>{props.error}</Typography>
         </Box>
       )}

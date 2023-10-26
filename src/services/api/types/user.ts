@@ -1,18 +1,17 @@
 import { FileEntity } from "./file-entity";
-import { Role } from "./role";
-
-export enum UserProviderEnum {
-  EMAIL = "email",
-  GOOGLE = "google",
-}
+import { RoleEnum } from "./role";
 
 export type User = {
   id: number;
-  email: string;
+  email?: string;
   firstName?: string;
   lastName?: string;
+  fullName?: string;
+  role: RoleEnum;
   photo?: FileEntity;
-  provider?: UserProviderEnum;
-  socialId?: string;
-  role?: Role;
+
+  discord: null | Record<string, unknown>
+  telegram: null | Record<string, unknown>
+  twitter: null | Record<string, unknown>
+  github: null | Record<string, unknown>
 };

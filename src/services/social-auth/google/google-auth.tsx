@@ -25,11 +25,13 @@ export default function GoogleAuth() {
       idToken: tokenResponse.credential,
     });
 
-    if (status === HTTP_CODES_ENUM.OK) {
+    console.log({ status, data })
+
+    if (status === HTTP_CODES_ENUM.OK || status === HTTP_CODES_ENUM.CREATED) {
       setTokensInfo({
-        token: data.token,
-        refreshToken: data.refreshToken,
-        tokenExpires: data.tokenExpires,
+        token: data.access.token,
+        refreshToken: data.refresh.token,
+        tokenExpires: new Date(data.access.validUntil).getTime(),
       });
       setUser(data.user);
     }
