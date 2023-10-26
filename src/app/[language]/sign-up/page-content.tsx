@@ -116,9 +116,9 @@ function Form() {
 
     if (statusSignIn === HTTP_CODES_ENUM.OK) {
       setTokensInfo({
-        token: dataSignIn.token,
-        refreshToken: dataSignIn.refreshToken,
-        tokenExpires: dataSignIn.tokenExpires,
+        token: dataSignIn.access.token,
+        refreshToken: dataSignIn.refresh.token,
+        tokenExpires: new Date(dataSignIn.access.validUntil).getTime(),
       });
       setUser(dataSignIn.user);
     }

@@ -96,9 +96,9 @@ function Form() {
 
     if (status === HTTP_CODES_ENUM.OK) {
       setTokensInfo({
-        token: data.token,
-        refreshToken: data.refreshToken,
-        tokenExpires: data.tokenExpires,
+        token: data.access.token,
+        refreshToken: data.refresh.token,
+        tokenExpires: new Date(data.access.validUntil).getTime(),
       });
       setUser(data.user);
     }
