@@ -1,6 +1,7 @@
 {
-  "app-name": "APP",
-  "loading": "Loading ...",
+  "app-name": "Tookey",
+  "loading"
+  : "Loading ...",
   "navigation": {
     "home": "Dashboard",
     "automation": "Automation",
@@ -9,7 +10,8 @@
     "signUp": "Sign Up",
     "profile": "Profile",
     "users": "Users",
-    "logout": "Logout"
+    "logout": "Logout",
+    "admin": "Admin"
   },
   "formInputs": {
     "avatarInput": {

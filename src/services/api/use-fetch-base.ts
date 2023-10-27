@@ -29,6 +29,11 @@ function useFetchBase() {
         };
       }
 
+      console.log({
+        ...tokens,
+        expired: tokens?.tokenExpires && tokens.tokenExpires <= Date.now(),
+      })
+
       if (tokens?.token) {
         headers = {
           ...headers,
@@ -45,16 +50,16 @@ function useFetchBase() {
           },
         }).then((res) => res.json());
 
-        if (newTokens.token) {
+        if (newTokens.access) {
           tokens?.setTokensInfo?.({
-            token: newTokens.token,
-            refreshToken: newTokens.refreshToken,
-            tokenExpires: newTokens.tokenExpires,
+            token: newTokens.access.token,
+            refreshToken: newTokens.refresh.token,
+            tokenExpires: new Date(newTokens.access.validUntil).getTime(),
           });
 
           headers = {
             ...headers,
-            Authorization: `Bearer ${newTokens.token}`,
+            Authorization: `Bearer ${newTokens.access.token}`,
           };
         } else {
           tokens?.setTokensInfo?.(null);

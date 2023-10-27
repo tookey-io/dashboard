@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import AdminHome from "./page-content";
 import { getServerTranslation } from "@/services/i18n";
-import AutomationPage from "./page-content";
 
 type Props = {
   params: { language: string };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { t } = await getServerTranslation(params.language, "automation");
+  const { t } = await getServerTranslation(params.language, "admin-panel-home");
 
   return {
     title: t("title"),
   };
 }
-export default AutomationPage
+
+export default AdminHome;

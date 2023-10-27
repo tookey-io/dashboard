@@ -1,6 +1,6 @@
 "use client";
-import Logo from '@/assets/s_tookey_wt.svg';
-import LogoMobile from '@/assets/s_tookey_xs.svg';
+import Logo from "@/assets/s_tookey_wt.svg";
+import LogoMobile from "@/assets/s_tookey_xs.svg";
 import Link from "@/components/link";
 import useAuth from "@/services/auth/use-auth";
 import useAuthActions from "@/services/auth/use-auth-actions";
@@ -51,7 +51,11 @@ function ResponsiveAppBar() {
     <AppBar position="static">
       <Container maxWidth={false}>
         <Toolbar disableGutters>
-          <Box sx={{ display: { xs: "none", md: "flex" }, mr: 2 }} alignItems='center' justifyContent='center'>
+          <Box
+            sx={{ display: { xs: "none", md: "flex" }, mr: 2 }}
+            alignItems="center"
+            justifyContent="center"
+          >
             <Image src={Logo} alt="logo" height={45} />
           </Box>
 
@@ -117,7 +121,11 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
 
-          <Box sx={{ display: { xs: "flex", md: "none" }}} alignItems='center' flexGrow='1'>
+          <Box
+            sx={{ display: { xs: "flex", md: "none" } }}
+            alignItems="center"
+            flexGrow="1"
+          >
             <Image src={LogoMobile} alt="logo" height={45} />
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -137,6 +145,17 @@ function ResponsiveAppBar() {
             >
               {t("common:navigation.automation")}
             </Button>
+
+            {user?.role && user.role > 1 && (
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+                component={Link}
+                href="/admin"
+              >
+                {t("common:navigation.admin")}
+              </Button>
+            )}
           </Box>
 
           {!isLoaded ? (
