@@ -9,6 +9,8 @@ import withPageRequiredAuth from "@/services/auth/with-page-required-auth";
 import { useAsync } from "@/services/helpers/use-async";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
+import Container from "@mui/material/Container";
+import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo } from "react";
@@ -17,7 +19,7 @@ export default withPageRequiredAuth(
   function AdminUsersList() {
     const getUsersSerivce = useGetUsersService();
     const getUserOtpService = useGetUserOtpService();
-    const router = useRouter()
+    const router = useRouter();
 
     const [usersResult, fetchUsers] = useAsync(
       async () =>
@@ -61,19 +63,35 @@ export default withPageRequiredAuth(
       if (otpResult.result.status !== HTTP_CODES_ENUM.OK) return;
 
       router.push(`/en/admin/automation/${otpResult.result.data.token}`);
-    }, [otpResult])
+    }, [otpResult]);
 
     useEffect(() => {
       fetchUsers();
     }, []);
 
     return (
-      <>
+      <Container maxWidth="xl">
         <Typography variant="h2">Users ({users?.length || "..."})</Typography>
         {users &&
           users.map((user) => (
             <Card key={user.id}>
-              <Typography variant="h4">{user.fullName}</Typography>
+              <Typography variant="h4">
+                {user.id} {user.fullName}
+              </Typography>
+              {user.discord && (
+                <Typography>Discord: {user.discord.discordTag}</Typography>
+              )}
+              {user.twitter && (
+                <Typography>
+                  Twitter:
+                  <Link
+                    href={`https://x.com/${user.twitter.username}`}
+                    target="_blank"
+                  >
+                    {user.twitter.username}
+                  </Link>
+                </Typography>
+              )}
               <Button onClick={() => handleAuth(user.id)}>
                 See automation
               </Button>
@@ -82,7 +100,7 @@ export default withPageRequiredAuth(
         {usersError && (
           <Typography variant="h4">Error: {usersError.message}</Typography>
         )}
-      </>
+      </Container>
     );
   },
   { roles: [2, 3, 100] }
