@@ -6,6 +6,12 @@ import {
   Shadows,
 } from "@mui/material/styles";
 import { PropsWithChildren, useMemo } from "react";
+import { Mulish } from "next/font/google";
+
+const mulishScript = Mulish({
+  subsets: ["cyrillic-ext", "latin-ext"],
+  weight: ["300", "400", "600"],
+});
 
 function ThemeProvider(props: PropsWithChildren<{}>) {
   // const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -31,44 +37,44 @@ function ThemeProvider(props: PropsWithChildren<{}>) {
         },
         typography: {
           h1: {
-            fontFamily: "Mulish",
+            fontFamily: mulishScript.style.fontFamily,
           },
           h2: {
-            fontFamily: "Mulish",
+            fontFamily: mulishScript.style.fontFamily,
           },
           h3: {
-            fontFamily: "Mulish",
+            fontFamily: mulishScript.style.fontFamily,
           },
           h4: {
-            fontFamily: "Mulish",
+            fontFamily: mulishScript.style.fontFamily,
           },
           h5: {
-            fontFamily: "Mulish",
+            fontFamily: mulishScript.style.fontFamily,
           },
           h6: {
-            fontFamily: "Mulish",
+            fontFamily: mulishScript.style.fontFamily,
           },
           subtitle1: {
-            fontFamily: "Mulish",
+            fontFamily: mulishScript.style.fontFamily,
           },
           subtitle2: {
-            fontFamily: "Mulish",
+            fontFamily: mulishScript.style.fontFamily,
           },
           body1: {
-            fontFamily: "Mulish",
+            fontFamily: mulishScript.style.fontFamily,
           },
           body2: {
-            fontFamily: "Mulish",
+            fontFamily: mulishScript.style.fontFamily,
           },
           button: {
-            fontFamily: "Mulish",
+            fontFamily: mulishScript.style.fontFamily,
             textTransform: "none",
           },
           caption: {
-            fontFamily: "Mulish",
+            fontFamily: mulishScript.style.fontFamily,
           },
           overline: {
-            fontFamily: "Mulish",
+            fontFamily: mulishScript.style.fontFamily,
           },
         },
         shape: {
