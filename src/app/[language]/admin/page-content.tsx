@@ -16,6 +16,7 @@ export default function AdminHome() {
       <Typography variant="h1">{t("title")}</Typography>
       <Typography variant="body1">{t("description")}</Typography>
       <Button href="/admin/users">Users</Button>
+      <Button href="/admin/secrets">Secrets</Button>
     </Container>
   );
 }
