@@ -145,14 +145,14 @@ function ResponsiveAppBar() {
             >
               {t("common:navigation.automation")}
             </Button>
-            <Button
+            {/* <Button
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
               component={Link}
               href="/keys"
             >
               {t("common:navigation.keys")}
-            </Button>
+            </Button> */}
 
             {user?.role && user.role > 1 && (
               <Button

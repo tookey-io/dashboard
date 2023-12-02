@@ -42,10 +42,10 @@ const AutomationPage = () => {
     const onMessage = (e: MessageEvent) => {
       if (
         typeof e.data === "object" &&
-        e.data.type === "routeChanged" &&
-        typeof e.data.url === "string"
+        e.data.type === "CLIENT_ROUTE_CHANGED" &&
+        typeof e.data.data.route === "string"
       ) {
-        const newUrl = e.data.url as string;
+        const newUrl = e.data.data.route as string;
         console.log("new url", newUrl, authenticated, redirectTo);
 
         if (newUrl.startsWith("/sign-in")) return;
